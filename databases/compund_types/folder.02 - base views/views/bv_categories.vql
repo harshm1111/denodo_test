@@ -13,7 +13,7 @@
         mode='mode' (OBL)
     ),
     categoryid='Envelope.Body.getAllCategoriesResponse.categories.category.categoryId',
-    categorynam='Envelope.Body.getAllCategoriesResponse.categories.category.categoryName'
+    categoryname='Envelope.Body.getAllCategoriesResponse.categories.category.categoryName'
     );
 
 CREATE OR REPLACE TYPE getallcategories_parameters AS REGISTER OF (mode:text);
@@ -21,7 +21,7 @@ CREATE OR REPLACE TYPE getallcategories_parameters AS REGISTER OF (mode:text);
 CREATE OR REPLACE TABLE bv_categories I18N us_cst (
         parameters:getallcategories_parameters, 
         categoryid:int, 
-        categorynam:text
+        categoryname:text
     )
     FOLDER = '/02 - base views'
     CACHE OFF
@@ -33,9 +33,9 @@ CREATE OR REPLACE TABLE bv_categories I18N us_cst (
              ADD categoryid NOS ZERO ()
              ADD parameters.mode (=) OPT ANY
              ADD parameters (is null) OPT ANY
-             ADD categorynam NOS ZERO ()
+             ADD categoryname NOS ZERO ()
         )
-        OUTPUTLIST (categoryid, categorynam, parameters
+        OUTPUTLIST (categoryid, categoryname, parameters
         )
         WRAPPER (ws bv_categories)
     );

@@ -1,0 +1,9 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_sales
+    FOLDER = '/01 - data sources'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.compund_types.folder.01 - data sources.datasources.json.ds_sales.ROUTE.HTTP.URL}'
+    AUTHENTICATION BASIC ( 
+      USER '${databases.compund_types.folder.01 - data sources.datasources.json.ds_sales.ROUTE.HTTP.USER}'
+      PASSWORD '${databases.compund_types.folder.01 - data sources.datasources.json.ds_sales.ROUTE.HTTP.PASSWORD}' ${databases.compund_types.folder.01 - data sources.datasources.json.ds_sales.ROUTE.HTTP.PASSWORD.ENCRYPTED} )
+    PROXY OFF;
+

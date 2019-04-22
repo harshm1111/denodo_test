@@ -1,0 +1,42 @@
+﻿CREATE OR REPLACE WRAPPER WS bv_categories
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getAllCategories'
+    INPUTMESSAGE='getAllCategories'
+    OUTPUTMESSAGE='getAllCategoriesResponse'
+    TUPLEROOT='/Envelope/Body/getAllCategoriesResponse/categories/category'
+    FROMEXAMPLE
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+        mode='mode' (OBL)
+    ),
+    categoryid='Envelope.Body.getAllCategoriesResponse.categories.category.categoryId',
+    categoryname='Envelope.Body.getAllCategoriesResponse.categories.category.categoryName'
+    );
+
+CREATE OR REPLACE TYPE getallcategories_parameters AS REGISTER OF (mode:text);
+
+CREATE OR REPLACE TABLE bv_categories I18N us_cst (
+        parameters:getallcategories_parameters, 
+        categoryid:int, 
+        categoryname:text
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_categories(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD categoryid NOS ZERO ()
+             ADD parameters.mode (=) OPT ANY
+             ADD parameters (is null) OPT ANY
+             ADD categoryname NOS ZERO ()
+        )
+        OUTPUTLIST (categoryid, categoryname, parameters
+        )
+        WRAPPER (ws bv_categories)
+    );
+

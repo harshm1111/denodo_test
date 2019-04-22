@@ -1,0 +1,4 @@
+﻿UNDEPLOY IF EXISTS WEBSERVICE sales_by_category;
+
+DEPLOY WEBSERVICE sales_by_category;
+

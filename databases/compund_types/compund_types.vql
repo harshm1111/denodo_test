@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE compund_types '';
+
+ALTER DATABASE compund_types
+  CHARSET DEFAULT;
+

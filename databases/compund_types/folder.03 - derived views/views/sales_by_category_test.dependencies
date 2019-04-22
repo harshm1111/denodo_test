@@ -1,0 +1,9 @@
+﻿/databases/compund_types/folder.03 - derived views/03 - derived views.vql
+/databases/compund_types/folder.02 - base views/02 - base views.vql
+/databases/compund_types/folder.01 - data sources/01 - data sources.vql
+/databases/compund_types/folder.01 - data sources/datasources/ws/ds_product.vql
+/databases/compund_types/folder.02 - base views/views/bv_getproduct_by_category.vql
+/databases/compund_types/folder.03 - derived views/views/dv_product_by_category.vql
+/databases/compund_types/folder.01 - data sources/datasources/json/ds_sales.vql
+/databases/compund_types/folder.02 - base views/views/bv_sales_all.vql
+/databases/compund_types/folder.03 - derived views/views/dv_seller_sales_array.vql

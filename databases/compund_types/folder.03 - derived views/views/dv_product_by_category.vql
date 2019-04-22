@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_product_by_category FOLDER = '/03 - derived views' AS SELECT bv_getproduct_by_category.productid AS productid, bv_getproduct_by_category.productname AS productname, bv_getproduct_by_category.productprice AS productprice, (bv_getproduct_by_category.parameters).categoryname AS categoryname FROM bv_getproduct_by_category;
+
+ALTER VIEW dv_product_by_category
+ LAYOUT (bv_getproduct_by_category = [20, 20, 390, 226]);
+

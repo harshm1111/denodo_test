@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW sales_by_category_test FOLDER = '/03 - derived views' AS SELECT dv_seller_sales_array.category AS category, cast('int', rownum()) AS "Rank", dv_seller_sales_array."Seller Id" AS "Seller Id", dv_seller_sales_array."Total Amount" AS "Total Amount" FROM dv_seller_sales_array;
+
+ALTER VIEW sales_by_category_test
+ LAYOUT (dv_seller_sales_array = [20, 20, 200, 86]);
+

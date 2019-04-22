@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_seller_sales_array FOLDER = '/03 - derived views' AS SELECT dv_getproductdetailsbycategory.categoryname AS category, bv_sales_all.employeeid AS "Seller Id", cast('int', bv_sales_all.totalprice) AS "Total Amount" FROM dv_product_by_category AS dv_getproductdetailsbycategory INNER JOIN bv_sales_all AS bv_sales_all ON dv_getproductdetailsbycategory.productid = bv_sales_all.productid  ORDER BY "Total Amount" DESC;
+
+ALTER VIEW dv_seller_sales_array
+ LAYOUT (dv_product_by_category = [20, 20, 200, 106], bv_sales_all = [509, 91, 200, 206]);
+

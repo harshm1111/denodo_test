@@ -1,0 +1,85 @@
+﻿CREATE OR REPLACE WRAPPER WS getproductdetailsbycategory
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getProductDetailsByCategory'
+    INPUTMESSAGE='getProductDetailsByCategory'
+    OUTPUTMESSAGE='getProductDetailsByCategoryResponse'
+    TUPLEROOT='/Envelope/Body/getProductDetailsByCategoryResponse/productDetails/productDetail'
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+        categoryname='categoryName' (OBL)
+    ),
+    productid='Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.productId',
+    productname='Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.productName',
+    productprice='Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.productPrice',
+    category = 'Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.category': REGISTER OF (
+        categoryid='categoryId',
+        categoryname='categoryName'
+    ),
+    characteristics = 'Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.characteristics': REGISTER OF (
+        characteristic_dimensions='characteristic_dimensions',
+        characteristic_weight='characteristic_weight',
+        characteristic_details='characteristic_details',
+        characteristic_color='characteristic_color'
+    ),
+    accessories = 'Envelope.Body.getProductDetailsByCategoryResponse.productDetails.productDetail.accessories': ARRAY OF (
+        productdata = 'accessories': REGISTER OF (
+            productid='productId',
+            productname='productName',
+            productprice='productPrice'
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getproductdetailsbycategory_parameters AS REGISTER OF (categoryname:text);
+
+CREATE OR REPLACE TYPE getproductdetailsbycategory_category AS REGISTER OF (categoryid:int, categoryname:text);
+
+CREATE OR REPLACE TYPE getproductdetailsbycategory_characteristics AS REGISTER OF (characteristic_dimensions:text, characteristic_weight:text, characteristic_details:text, characteristic_color:text);
+
+CREATE OR REPLACE TYPE getproductdetailsbycategory_accessories_productdata AS REGISTER OF (productid:int, productname:text, productprice:float);
+
+CREATE OR REPLACE TYPE getproductdetailsbycategory_accessories AS ARRAY OF getproductdetailsbycategory_accessories_productdata;
+
+CREATE OR REPLACE TABLE bv_getproduct_by_category I18N us_cst (
+        parameters:getproductdetailsbycategory_parameters, 
+        productid:int, 
+        productname:text, 
+        productprice:float, 
+        category:getproductdetailsbycategory_category, 
+        characteristics:getproductdetailsbycategory_characteristics, 
+        accessories:getproductdetailsbycategory_accessories
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD getproductdetailsbycategory(
+        I18N us_cst
+        CONSTRAINTS (
+             ADD parameters.categoryname (=) OBL ONE
+             ADD productid NOS ZERO ()
+             ADD productname NOS ZERO ()
+             ADD productprice NOS ZERO ()
+             ADD category NOS ZERO ()
+             ADD category.categoryid NOS ZERO ()
+             ADD category.categoryname NOS ZERO ()
+             ADD characteristics NOS ZERO ()
+             ADD characteristics.characteristic_dimensions NOS ZERO ()
+             ADD characteristics.characteristic_weight NOS ZERO ()
+             ADD characteristics.characteristic_details NOS ZERO ()
+             ADD characteristics.characteristic_color NOS ZERO ()
+             ADD accessories NOS ZERO ()
+             ADD accessories NOS ZERO ()
+             ADD accessories.productid NOS ZERO ()
+             ADD accessories.productname NOS ZERO ()
+             ADD accessories.productprice NOS ZERO ()
+             ADD parameters (=,is null) OPT ONE
+        )
+        OUTPUTLIST (accessories, category, characteristics, productid, productname, productprice
+        )
+        WRAPPER (ws getproductdetailsbycategory)
+    );
+

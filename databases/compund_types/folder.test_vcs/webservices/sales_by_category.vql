@@ -37,5 +37,5 @@
                     '/sales/Seller Id'='SellerId',
                     '/sales/Total Amount'='TotalAmount'))
     )
-    FOLDER = '/04 - data services';
+    FOLDER = '/test_vcs';
 

@@ -27,5 +27,10 @@ CREATE OR REPLACE DATASOURCE JDBC ds_human_resources
     PROPERTIES ('remarksReporting'='false', 'includeSynonyms'='false')
     DATA_LOAD_CONFIGURATION (
         BATCHINSERTSIZE = 200
+    )
+    SOURCECONFIGURATION (
+        delegateaggregatefunctionslist = (avg, count, max, min, stdev, stdevp, sum, var, varp),
+        delegatescalarfunctionslist = (abs, acos, addday, addhour, addminute, addmonth, addsecond, addweek, addyear, ascii, asin, atan, atan2, case, cast, ceil, char, coalesce, concat, cos, cot, current_date, degrees, div, exp, firstdayofmonth, firstdayofweek, floor, formatdate, getday, getdayofweek, getdayofyear, getdaysbetween, gethour, getmicrosecond, getmillisecond, getminute, getmonth, getmonthsbetween, getnanosecond, getquarter, getsecond, gettimeinmillis, getweek, getyear, instr, lastdayofmonth, lastdayofweek, len, ln, log, lower, ltrim, max, min, mod, mult, nextweekday, now, nullif, pi, position, pow, power, previousweekday, radians, regexp, removeaccents, repeat, replace, round, rtrim, sign, sin, sql_trim, sqrt, substr, substring, subtract, sum, tan, textcat, textconstant, to_date, to_interval_day_second, to_interval_year_month, to_localdate, to_timestamp, to_timestamptz, trim, trunc, upper, xmlquery, xpath),
+        delegateanalyticfunctionslist = (avg, count, cume_dist, dense_rank, first_value, lag, last_value, lead, listagg, max, min, ntile, percent_rank, percentile_cont, percentile_disc, rank, sum)
     );
 

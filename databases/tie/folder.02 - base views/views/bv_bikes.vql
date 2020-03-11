@@ -1,0 +1,53 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_bikes
+    DATASOURCENAME=testing.ds_oracle
+    SCHEMANAME='${databases.tie.views.jdbc.bv_bikes.SCHEMANAME}' ESCAPE
+    RELATIONNAME='BIKE_SALES' 
+    OUTPUTSCHEMA (
+        duration = 'DURATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        startdate_0 = 'STARTDATE_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        enddate_0 = 'ENDDATE_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        startstationnumber_0 = 'STARTSTATIONNUMBER_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        startstation_0 = 'STARTSTATION_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        endstationnumber_0 = 'ENDSTATIONNUMBER_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        endstation_0 = 'ENDSTATION_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        bikenumber_0 = 'BIKENUMBER_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        membertype_0 = 'MEMBERTYPE_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        splittest_0 = 'SPLITTEST_0' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='4000', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_bikes I18N us_pst (
+        duration:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        startdate_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        enddate_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        startstationnumber_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        startstation_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        endstationnumber_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        endstation_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        bikenumber_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        membertype_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000'), 
+        splittest_0:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '4000')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_bikes(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD duration (any) OPT ANY
+             ADD startdate_0 (any) OPT ANY
+             ADD enddate_0 (any) OPT ANY
+             ADD startstationnumber_0 (any) OPT ANY
+             ADD startstation_0 (any) OPT ANY
+             ADD endstationnumber_0 (any) OPT ANY
+             ADD endstation_0 (any) OPT ANY
+             ADD bikenumber_0 (any) OPT ANY
+             ADD membertype_0 (any) OPT ANY
+             ADD splittest_0 (any) OPT ANY
+        )
+        OUTPUTLIST (bikenumber_0, duration, enddate_0, endstation_0, endstationnumber_0, membertype_0, splittest_0, startdate_0, startstation_0, startstationnumber_0
+        )
+        WRAPPER (jdbc bv_bikes)
+    )
+    DATA_LOAD_QUERY = 'Select * from bv_bikes;';
+

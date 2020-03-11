@@ -1,0 +1,31 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_hlxrep_bill_to_party_lov
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_oracle
+    SQLSENTENCE='Select  ''All'' as dis_value ,''='''''''''' as value
+Union
+Select  ''My Company'' as dis_value,''=''''{{{{$$organizationExternalId}}}}'''''' as value
+Union
+Select  ''Not My Company'' as dis_value,  ''<>''''{{{{$$organizationExternalId}}}}'''''' as value'   
+    OUTPUTSCHEMA (
+        dis_value = 'dis_value' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='14', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE NOT UPDATEABLE,
+        value = 'value' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='24', sourcetypeid='12', sourcetypename='varchar')  ESCAPE NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_hlxrep_bill_to_party_lov I18N us_est (
+        dis_value:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '14'), 
+        value:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '24')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_hlxrep_bill_to_party_lov(
+        I18N us_est
+        CONSTRAINTS (
+             ADD dis_value NOS ZERO ()
+             ADD value NOS ZERO ()
+        )
+        OUTPUTLIST (dis_value, value
+        )
+        WRAPPER (jdbc bv_hlxrep_bill_to_party_lov)
+    );
+

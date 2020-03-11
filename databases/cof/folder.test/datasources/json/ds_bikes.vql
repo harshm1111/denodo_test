@@ -1,0 +1,16 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_bikes
+    FOLDER = '/test'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.cof.folder.test.datasources.json.ds_bikes.ROUTE.HTTP.URL}'
+    PAGINATION_SETTINGS (
+      PAGE_SIZE_PARAMETER = '$top'
+      PAGE_SIZE = 1000
+      PAGE_NUMBER_PARAMETER = '$skip'
+      FIRST_PAGE_INDEX = 0
+      OFFSET_FOR_NEXT_REQUESTS = 1000
+      MAX_NUMBER_OF_REQUESTS = 1000 )
+    AUTHENTICATION BASIC ( 
+      USER '${databases.cof.folder.test.datasources.json.ds_bikes.ROUTE.HTTP.USER}'
+      PASSWORD '${databases.cof.folder.test.datasources.json.ds_bikes.ROUTE.HTTP.PASSWORD}' ${databases.cof.folder.test.datasources.json.ds_bikes.ROUTE.HTTP.PASSWORD.ENCRYPTED} )
+    PROXY OFF;
+

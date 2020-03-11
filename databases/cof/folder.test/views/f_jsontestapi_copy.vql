@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW f_jsontestapi_copy FOLDER = '/test' AS SELECT "@odata.context", "@odata.nextLink", "PVEVAVUF", "CostItemUF", "PV___Cost", "PV___ManHours", "Period", "PV___Quantity", "PVRevenue", "PVEquipHours", "IsCB", "IsCBFinal", "LabourPercentage", "OwnedPercentage", "RentedPercentage", "SuppliesPercentage", "MaterialsPercentage", "SubContractPercentage", "FeesPercentage", "AllowancePercentage", "CustCat1Percentage", "UndefinedPercentage" FROM FLATTEN jsontestapi_copy AS v ( v.value);
+
+ALTER VIEW f_jsontestapi_copy
+ LAYOUT (jsontestapi_copy = [20, 20, 342, 486]);
+

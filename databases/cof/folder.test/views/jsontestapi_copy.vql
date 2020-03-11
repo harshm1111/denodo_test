@@ -1,0 +1,79 @@
+﻿CREATE OR REPLACE WRAPPER JSON jsontestapi_copy_5039
+    FOLDER = '/test'
+    DATASOURCENAME=jsontestapi_copy
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA ("JSONFile" = 'JSONFile' : REGISTER OF (
+        "@odata.context" = '@odata.context' : 'java.lang.String',
+        value = 'value' : ARRAY OF (
+            value = 'value' : REGISTER OF (
+                "PVEVAVUF" = 'PVEVAVUF' : 'java.lang.String',
+                "CostItemUF" = 'CostItemUF' : 'java.lang.String',
+                "PV___Cost" = 'PV___Cost' : 'java.lang.Double',
+                "PV___ManHours" = 'PV___ManHours' : 'java.lang.Double',
+                "Period" = 'Period' : 'java.lang.String',
+                "PV___Quantity" = 'PV___Quantity' : 'java.lang.Double',
+                "PVRevenue" = 'PVRevenue' : 'java.lang.Double',
+                "PVEquipHours" = 'PVEquipHours' : 'java.lang.Double',
+                "IsCB" = 'IsCB' : 'java.lang.String',
+                "IsCBFinal" = 'IsCBFinal' : 'java.lang.String',
+                "LabourPercentage" = 'LabourPercentage' : 'java.lang.Double',
+                "OwnedPercentage" = 'OwnedPercentage' : 'java.lang.Double',
+                "RentedPercentage" = 'RentedPercentage' : 'java.lang.Double',
+                "SuppliesPercentage" = 'SuppliesPercentage' : 'java.lang.Double',
+                "MaterialsPercentage" = 'MaterialsPercentage' : 'java.lang.Double',
+                "SubContractPercentage" = 'SubContractPercentage' : 'java.lang.Double',
+                "FeesPercentage" = 'FeesPercentage' : 'java.lang.Double',
+                "AllowancePercentage" = 'AllowancePercentage' : 'java.lang.Double',
+                "CustCat1Percentage" = 'CustCat1Percentage' : 'java.lang.Double',
+                "UndefinedPercentage" = 'UndefinedPercentage' : 'java.lang.Double'
+            )
+        ),
+        "@odata.nextLink" = '@odata.nextLink' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TYPE jsontestapi_copy_value_value AS REGISTER OF ("PVEVAVUF":text, "CostItemUF":text, "PV___Cost":double, "PV___ManHours":double, "Period":text, "PV___Quantity":double, "PVRevenue":double, "PVEquipHours":double, "IsCB":text, "IsCBFinal":text, "LabourPercentage":double, "OwnedPercentage":double, "RentedPercentage":double, "SuppliesPercentage":double, "MaterialsPercentage":double, "SubContractPercentage":double, "FeesPercentage":double, "AllowancePercentage":double, "CustCat1Percentage":double, "UndefinedPercentage":double);
+
+CREATE OR REPLACE TYPE jsontestapi_copy_value AS ARRAY OF jsontestapi_copy_value_value;
+
+CREATE OR REPLACE TABLE jsontestapi_copy I18N us_mst_mdt (
+        "@odata.context":text, 
+        value:jsontestapi_copy_value, 
+        "@odata.nextLink":text
+    )
+    FOLDER = '/test'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD jsontestapi_copy(
+        I18N us_mst_mdt
+        CONSTRAINTS (
+             ADD "@odata.context" NOS ZERO ()
+             ADD value NOS ZERO ()
+             ADD value NOS ZERO ()
+             ADD value."PVEVAVUF" NOS ZERO ()
+             ADD value."CostItemUF" NOS ZERO ()
+             ADD value."PV___Cost" NOS ZERO ()
+             ADD value."PV___ManHours" NOS ZERO ()
+             ADD value."Period" NOS ZERO ()
+             ADD value."PV___Quantity" NOS ZERO ()
+             ADD value."PVRevenue" NOS ZERO ()
+             ADD value."PVEquipHours" NOS ZERO ()
+             ADD value."IsCB" NOS ZERO ()
+             ADD value."IsCBFinal" NOS ZERO ()
+             ADD value."LabourPercentage" NOS ZERO ()
+             ADD value."OwnedPercentage" NOS ZERO ()
+             ADD value."RentedPercentage" NOS ZERO ()
+             ADD value."SuppliesPercentage" NOS ZERO ()
+             ADD value."MaterialsPercentage" NOS ZERO ()
+             ADD value."SubContractPercentage" NOS ZERO ()
+             ADD value."FeesPercentage" NOS ZERO ()
+             ADD value."AllowancePercentage" NOS ZERO ()
+             ADD value."CustCat1Percentage" NOS ZERO ()
+             ADD value."UndefinedPercentage" NOS ZERO ()
+             ADD "@odata.nextLink" NOS ZERO ()
+        )
+        OUTPUTLIST ("@odata.context", "@odata.nextLink", value
+        )
+        WRAPPER (json jsontestapi_copy_5039)
+    );
+

@@ -1,0 +1,14 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON "ds_trackInfos_api_copy_copy2"
+    FOLDER = '/cfos api/chandra/01 - data sources/rest/archive'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.cof.folder.cfos api.folder.chandra.folder.01 - data sources.folder.rest.folder.archive.datasources.json.ds_trackinfos_api_copy_copy2.ROUTE.HTTP.URL}'
+    HEADERS (
+        'Authorization'='cYNE4eaCslgxwQPJzYYeB33ybyIOpithyfOAGx5tlLi1Vg8sE9eF0AW50WecRtY1', 
+        'X-Pagination'='NextPage'
+    )
+    PAGINATION_SETTINGS (
+      NEXT_TOKEN_PATH = 'NextPage'
+      MAX_NUMBER_OF_REQUESTS = 20 )
+    AUTHENTICATION OFF
+    PROXY OFF;
+

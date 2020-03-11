@@ -1,0 +1,59 @@
+﻿CREATE OR REPLACE WRAPPER JSON bv_bikes_odata
+    FOLDER = '/test'
+    DATASOURCENAME=ds_bikes
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        odatacontext_0 = '@odata.context' : 'java.lang.String',
+        value = 'value' : ARRAY OF (
+            value = 'value' : REGISTER OF (
+                duration = 'duration' : 'java.lang.String',
+                startdate_0 = 'startdate_0' : 'java.lang.String',
+                enddate_0 = 'enddate_0' : 'java.lang.String',
+                startstationnumber_0 = 'startstationnumber_0' : 'java.lang.String',
+                startstation_0 = 'startstation_0' : 'java.lang.String',
+                endstationnumber_0 = 'endstationnumber_0' : 'java.lang.String',
+                endstation_0 = 'endstation_0' : 'java.lang.String',
+                bikenumber_0 = 'bikenumber_0' : 'java.lang.String',
+                membertype_0 = 'membertype_0' : 'java.lang.String',
+                splittest_0 = 'splittest_0' : 'java.lang.String'
+            )
+        ),
+        odatanextlink_0 = '@odata.nextLink' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_bikes_value_value AS REGISTER OF (duration:text, startdate_0:text, enddate_0:text, startstationnumber_0:text, startstation_0:text, endstationnumber_0:text, endstation_0:text, bikenumber_0:text, membertype_0:text, splittest_0:text);
+
+CREATE OR REPLACE TYPE ds_bikes_value AS ARRAY OF ds_bikes_value_value;
+
+CREATE OR REPLACE TABLE bv_bikes_odata I18N us_pst (
+        odatacontext_0:text, 
+        value:ds_bikes_value, 
+        odatanextlink_0:text
+    )
+    FOLDER = '/test'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_bikes_odata(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD odatacontext_0 NOS ZERO ()
+             ADD value NOS ZERO ()
+             ADD value NOS ZERO ()
+             ADD value.duration NOS ZERO ()
+             ADD value.startdate_0 NOS ZERO ()
+             ADD value.enddate_0 NOS ZERO ()
+             ADD value.startstationnumber_0 NOS ZERO ()
+             ADD value.startstation_0 NOS ZERO ()
+             ADD value.endstationnumber_0 NOS ZERO ()
+             ADD value.endstation_0 NOS ZERO ()
+             ADD value.bikenumber_0 NOS ZERO ()
+             ADD value.membertype_0 NOS ZERO ()
+             ADD value.splittest_0 NOS ZERO ()
+             ADD odatanextlink_0 NOS ZERO ()
+        )
+        OUTPUTLIST (odatacontext_0, odatanextlink_0, value
+        )
+        WRAPPER (json bv_bikes_odata)
+    );
+
